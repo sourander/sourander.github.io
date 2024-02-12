@@ -41,7 +41,7 @@ jobs:
         run: poetry install --no-root # No root skips installing the project itself. There is none.
 
       - name: Build the mkdocs site
-        run: mkdocs build
+        run: poetry run mkdocs build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
