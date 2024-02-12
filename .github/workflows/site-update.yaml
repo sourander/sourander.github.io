@@ -40,6 +40,9 @@ jobs:
       - name: Install the project dependencies
         run: poetry install --no-root # No root skips installing the project itself. There is none.
 
+      - name: Write the Index MarkDwon file
+        run: poetry run write-index
+
       - name: Build the mkdocs site
         run: poetry run mkdocs build
 
