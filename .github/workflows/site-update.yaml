@@ -6,7 +6,9 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Manually run the workflow
+  workflow_dispatch:     # Allow manual run from the Actions tab
+  schedule:
+    - cron: '0 0 * * *'  # Run the workflow every day at 00:00 UTC
 
 jobs:
   deploy:
