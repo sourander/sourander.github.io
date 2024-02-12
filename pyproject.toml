@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sourander-github-io"
+version = "0.1.0"
+description = "A front page for all Github Pages sites under sourander.github.io"
+authors = ["Jani Sourander <jani.sourander@kamk.fi>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+mkdocs-material = "^9.5.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
