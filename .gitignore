@@ -1,0 +1,7 @@
+# We do not want to version control the local index.md file
+# The Github Actions will build their own.
+docs/index.md
+
+# Python stuff
+__pycache__/
+*.pyc

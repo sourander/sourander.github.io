@@ -4,12 +4,7 @@ Welcome to sourander.github.io front page. This is an entry portal for all Githu
 
 ## Sites
 
-
-* oat 
-    * Oppimispäiväkirja 101
-
-* linux-perusteet 
-    * Linux Perusteet -lukumateriaali.
-
-* python-perusteet 
-    * Python Perusteet -lukumateriaali.
+{% for site in sites %}
+* {{ site.name }} 
+    * {{ site.description }}
+{% endfor %}
