@@ -5,11 +5,29 @@ Welcome to sourander.github.io front page. This is an entry portal for all Githu
 ## Sites
 
 
-* oat 
-    * Oppimispäiväkirja 101
+* data-alustat 
+    * Data-alustat kurssin materiaalia.
+
+* doc-skeleton 
+    * None
+
+* eso-app 
+    * A Streamlit app for education and testing purposes. Serves Elder Scrolls Online related web apps.
+
+* how-to-git 
+    * None
 
 * linux-perusteet 
-    * Linux Perusteet -lukumateriaali.
+    * None
+
+* ml-perusteet 
+    * None
+
+* oat 
+    * Oppimispäiväkirjan arviointityökalu ja kirjoitusopas.
 
 * python-perusteet 
-    * Python Perusteet -lukumateriaali.
+    * None
+
+* tietoliikenneohjelmointi 
+    * None
