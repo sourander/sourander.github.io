@@ -44,6 +44,8 @@ jobs:
 
       - name: Write the Index MarkDwon file
         run: poetry run write-index
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the mkdocs site
         run: poetry run mkdocs build

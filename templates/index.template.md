@@ -10,7 +10,12 @@ Welcome to sourander.github.io front page. This is an entry portal for all Githu
 
 ## Sites
 
-{% for site in sites %}
-* {{ site.name }} 
-    * {{ site.description }}
+{% for category in categories %}
+### {{ category.name }}
+
+| URL | Description | Latest Commit | Related repo |
+| --- | ----------- | ------------- | ------------ |
+{% for site in category.sites -%}
+| [{{site.name}}]({{ site.url }}) | {{ site.description }} | {{ site.latest_commit }} | {{ site.related_repo }} |
+{% endfor %}
 {% endfor %}
