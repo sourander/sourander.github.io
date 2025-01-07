@@ -19,5 +19,8 @@ readme = "README.md"
 write-index = "sourander_github_io.main:write_index"
 
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sourander_github_io"]
