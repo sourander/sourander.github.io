@@ -17,3 +17,7 @@ readme = "README.md"
 
 [project.scripts]
 write-index = "sourander_github_io.main:write_index"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
