@@ -33,8 +33,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build the mkdocs site
-        run: poetry run mkdocs build
-
       - name: Deploy to gh-pages branch
         run: uv run mkdocs gh-deploy --force
