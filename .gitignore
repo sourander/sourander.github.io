@@ -3,6 +3,7 @@
 docs/index.md
 
 # Python stuff
+.venv/
 __pycache__/
 *.pyc
 

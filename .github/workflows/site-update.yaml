@@ -1,5 +1,3 @@
-
-
 name: GitHub Pages
 
 on:
@@ -10,49 +8,33 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Run the workflow every day at 00:00 UTC
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
-          python-version: '3.10'
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-      
-      - name: Use a local virtual environment in .venv directory
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      
-      - uses: actions/cache@v4
-        name: Define a cache for the virtual environment based on the dependencies lock file
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-      
-      - name: Install the project dependencies
-        run: poetry install --no-root # No root skips installing the project itself. There is none.
+      - name: Set up Python
+        run: uv python install
 
-      - name: Write the Index MarkDwon file
-        run: poetry run write-index
+      - name: Write the index MarkDown file # docs/index.md
+        run: uv run write-index
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the mkdocs site
         run: poetry run mkdocs build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+      - name: Deploy to gh-pages branch
+        run: uv run mkdocs gh-deploy --force
