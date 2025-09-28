@@ -67,7 +67,7 @@ def enrich_commit_info(sites: list[Site], namespace="sourander") -> list[Site]:
 def enrich_json_info(sites: list[Site], namespace="sourander") -> list[Site]:
     # Enrich the sites with the latest commit date
     for site in sites:
-        response = requests.get(f"https://raw.githubusercontent.com/{namespace}/{site.name}/master/siteinfo.json")
+        response = requests.get(f"https://raw.githubusercontent.com/{namespace}/{site.name}/main/siteinfo.json")
         
         try:
             data = response.json()
@@ -91,8 +91,10 @@ def group_sites_by_category(sites: list[Site]) -> list[Category]:
         categories[site.category].append(site)
 
     # Add the categories to a list and sort by newest commit
+    # Sort categories alphabetically, but put "Inactive" at the end
     cats: list[Category] = []
-    for category in sorted(categories):
+    sorted_categories = sorted(categories.keys(), key=lambda x: (x == "Inactive", x))
+    for category in sorted_categories:
         sites = categories[category]
         sites_ordered = sorted(sites, key=lambda x: x.latest_commit, reverse=True)
         cat = Category(name=category, sites=sites_ordered)
