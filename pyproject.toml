@@ -11,7 +11,7 @@ dependencies = [
     "python-dotenv~=1.0",
 ]
 name = "sourander-github-io"
-version = "0.1.1"
+version = "0.1.2"
 description = "A portal or front page for all Github Pages sites under sourander.github.io"
 readme = "README.md"
 

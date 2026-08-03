@@ -12,7 +12,8 @@ def has_path(url):
 
 def fetch_sites(namespace="sourander") -> list[Site]:
     # Fetch the repositories from the API
-    response = requests.get(f"https://api.github.com/users/{namespace}/repos", headers=HEADERS)
+    response = requests.get(f"https://api.github.com/users/{namespace}/repos", headers=HEADERS, params={"per_page": 100})
+    response.raise_for_status()
     repositories = response.json()
 
     # Filter
@@ -55,6 +56,7 @@ def enrich_commit_info(sites: list[Site], namespace="sourander") -> list[Site]:
     # Enrich the sites with the latest commit date
     for site in sites:
         response = requests.get(f"https://api.github.com/repos/{namespace}/{site.name}/commits", headers=HEADERS)
+        response.raise_for_status()
         commits = response.json()
 
         if len(commits) > 0:
