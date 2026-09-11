@@ -4,34 +4,51 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:     # Allow manual run from the Actions tab
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # Run the workflow every day at 00:00 UTC
+    - cron: "0 0 * * *"  # Every day at 00:00 UTC
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
+    name: Build and deploy GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v7
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v4
-        with:
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        # Pinned setup-uv v10.1.0
 
-      - name: Set up Python
+      - name: Install Python
         run: uv python install
 
-      - name: Write the index MarkDown file # docs/index.md
-        run: uv run write-index
+      - name: Generate docs/index.md
+        run: uv run --frozen write-index
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Deploy to gh-pages branch
-        run: uv run mkdocs gh-deploy --force
+      - name: Build site
+        run: uv run --frozen zensical build --clean --strict
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

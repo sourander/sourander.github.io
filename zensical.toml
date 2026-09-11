@@ -1,0 +1,13 @@
+[project]
+variant = "modern"
+site_name = "sourander.github.io index"
+site_url = "https://sourander.github.io/sourander.github.io/"
+site_author = "Jani Sourander"
+repo_name = "sourander/sourander.github.io"
+repo_url = "https://github.com/sourander/sourander.github.io}"
+language = "fi"
+
+copyright = """
+Copyright &copy; {% now 'utc', '%Y' %} <a href="https://github.com/sourander/">Jani Sourander</a>.
+Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA 4.0</a>
+"""
